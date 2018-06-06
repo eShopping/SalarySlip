@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Salary Generator</h2>
+<body>
+
+    <form>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">First Name</label>
+            <input type="text" id="txtFirstName" class="form-control" placeholder="First Name">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Last Name</label>
+            <input type="text" id="txtLastName" class="form-control" placeholder="Last Name">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Pay Period</label>
+            <input type="text" id="txtPayPeriod" class="form-control" placeholder="Pay Period">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Gross-Income</label>
+            <input type="text" id="txtGrossIncome" class="form-control" placeholder="Gross Income">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Super-Rate (%)</label>
+            <input type="text" id="txtSuperAmount" class="form-control" placeholder="Super Rate">
+        </div>
+        <div class="form-group">
+            <button type="button" id="btnGenerate" class="btn">Generate</button>
+        </div>
+    </form>
+    <div class="table-responsive-sm">
+        <table class="table">
+            <thead>
+                <tr><th>#</th><th>Name</th><th>Pay-Period</th><th>Gross-Income</th><th>Income-Tax</th><th>Net-Income</th><th>Super-Amount</th> </tr>
+            </thead>
+            <tbody id="tblSalary"></tbody>
+        </table>
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script lang="en" type="text/javascript">
+    $(document).ready(function () {
+
+    });
+    function GetFraction(value) {
+        var divArray = value.toFixed(1).toString().split(".");
+        var fract = divArray[1];
+        if (fract >= 5) {
+            value = parseFloat(divArray[0]) + 1;
+        }
+        else { value = parseFloat(divArray[0]) }
+        return value;
+    }
+    $("#txtPayPeriod").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'MM yy'
+    });
+    $("#btnGenerate").click(function () {
+        var input = {
+            FirstName: '',
+            LastName: '',
+            PayPeriod: '',
+            GrossIncome: '',
+            SuperRate: ''
+        }
+        input.FirstName = $.trim($("#txtFirstName").val());
+        input.LastName = $.trim($("#txtLastName").val());
+        input.PayPeriod = $.trim($("#txtPayPeriod").val());
+        input.GrossIncome = $.trim($("#txtGrossIncome").val());
+        input.SuperRate = $.trim($("#txtSuperAmount").val());
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            async: false,
+            cache: false,
+            url: '/Salary/CalculateSalary',
+            context: document.body,
+            data: input,
+            success: function (result) {
+                var month = new Array();
+                month[0] = "January";
+                month[1] = "February";
+                month[2] = "March";
+                month[3] = "April";
+                month[4] = "May";
+                month[5] = "June";
+                month[6] = "July";
+                month[7] = "August";
+                month[8] = "September";
+                month[9] = "October";
+                month[10] = "November";
+                month[11] = "December";
+                var permonth = $("#txtPayPeriod").val();
+                var dt = new Date(permonth);
+                var month1 = dt.getMonth(),
+                    year = dt.getFullYear();
+
+                // GET THE FIRST AND LAST DATE OF THE MONTH.
+                var FirstDay = new Date(year, month1, 1);
+                var LastDay = new Date(year, month1 + 1, 0);
+                var payperiod = FirstDay.getDate() + " " + month[FirstDay.getMonth()] + "- " + LastDay.getDate() + " " + month[LastDay.getMonth()];
+                var appendHtml = "<tr><td></td><td>" + result.FullName + "</td><td>" + payperiod + "</td><td>$" + GetFraction(result.GrossIncome) + "</td><td>$" + GetFraction(result.IncomeTax) + "</td><td>$" + GetFraction(result.NetIncome) + "</td><td>$" + GetFraction(result.SuperAmount) + "</td></tr>";
+                $("#tblSalary").html(appendHtml);
+            },
+            error: function (xhr) {
+                //debugger;
+                console.log(xhr.responseText);
+                alert("Error has occurred..");
+            }
+        });
+    });
+</script>

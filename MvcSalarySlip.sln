@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcSalarySlip", "MvcSalarySlip\MvcSalarySlip.csproj", "{6BC63FBE-DD79-4CC0-92A0-7F0676AC8A46}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B1D8CDCB-472F-4090-9884-7B2632DBD0E7} = {B1D8CDCB-472F-4090-9884-7B2632DBD0E7}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcSalarySlip.Tests", "MvcSalarySlip.Tests\MvcSalarySlip.Tests.csproj", "{B1D8CDCB-472F-4090-9884-7B2632DBD0E7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6BC63FBE-DD79-4CC0-92A0-7F0676AC8A46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BC63FBE-DD79-4CC0-92A0-7F0676AC8A46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BC63FBE-DD79-4CC0-92A0-7F0676AC8A46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BC63FBE-DD79-4CC0-92A0-7F0676AC8A46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D8CDCB-472F-4090-9884-7B2632DBD0E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D8CDCB-472F-4090-9884-7B2632DBD0E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D8CDCB-472F-4090-9884-7B2632DBD0E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1D8CDCB-472F-4090-9884-7B2632DBD0E7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BFF74BB9-423F-42AB-B554-1B6C17BFE3A3}
+	EndGlobalSection
+EndGlobal
